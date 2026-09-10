@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.1] — 2026-09-10
+
+### Notas
+- **Bautismo firmado (2026-09-10)**: primera decision card real en producción —
+  decisión, opciones, renuncia, criterio, dueño, fecha y revisit trigger
+  completos (revisit **2026-09-17**). El lint constitucional se ejerció en la
+  propia firma: la Decididora queda operativa.
+- Repaso de tríada: referencias cruzadas verificadas (Astrid · Iris · Elena) y
+  licencia MIT consistente en los tres repos.
+
 ## [0.1.0] — 2026-09-10
 
 Primera release. Elena nace como tercera pata de la tríada **A–I–E**.
