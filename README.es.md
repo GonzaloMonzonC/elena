@@ -50,6 +50,8 @@ python harness/elena_harness.py constitution     # su ley, en orden
 
 Un runtime lumen MVM: clona [lumen-protocol](https://github.com/GonzaloMonzonC/lumen-protocol) junto a este repo (recomendado) o instala `lumen-mcp` + apunta `LUMEN_MLIGHT_LIB` a tu `lumen_mlight.dll`/`.so`.
 
+*Corre sobre un MVM lumen: una única librería nativa de ~4 MB (Rust a código máquina) — sin intérprete que instalar, sin runtime que arrancar.*
+
 ## Estado
 
 **v0.1.0** — personalidad + contrato de decisión + suite verde. Elena vive además como agente del ecosistema (`mode: elena` en Poli, routing `^AGENTES("routing","elena")`).
