@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# MVM / build artifacts
+target/
+*.dll
+*.so
+*.dylib
+
+# PDBs de prueba
+*.db
+*.db-journal
+*.db-wal
+
+# Sistema
+.DS_Store
+Thumbs.db

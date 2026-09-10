@@ -1,0 +1,30 @@
+# Changelog
+
+## [0.1.0] — 2026-09-10
+
+Primera release. Elena nace como tercera pata de la tríada **A–I–E**.
+
+### Diseño (ronda del equipo)
+- **La brecha**: Astrid (*episteme*) e Iris (*poiesis*) son bucles que no terminan — regresión epistémica y
+  generativa infinitas. Falta **phronesis**: la Decididora que clausura.
+- Análisis multi-asesor (Javier · Pamies · Porto): el «basta» como **frontera de umbral** (no desautorización
+  del rigor), la renuncia como artículo propio, el no en **tres tiempos** (No / Hasta que / Entonces sí),
+  **falso bloqueante vs declarable**, «el silencio es el presupuesto corriendo», y «Elena es el embrague».
+- Voces de las hermanas: Iris — *"portera, no jueza"*, todo no con plan B y fecha de caducidad; Astrid —
+  *"registro qué es, no qué se hizo"*, arbitraje con claim + confidence.
+- Decisión de Gonzalo: **agente real, repo propio** (no protocolo). Nombre: **Elena**.
+
+### Contrato M (`src/elena.m`)
+- `DECIDE` con **lint constitucional embebido**: sin decisión + opciones + renuncia + criterio + dueño +
+  fecha + confianza → `rechazada:<razon>`.
+- `REVIEW` con fechas ISO (decisiones vencidas), `LOG`, `CONSTITUTION` (12 artículos en orden), `COUNT`.
+- Estado como zona persistente (`status`), verificado cross-exec.
+
+### Herramientas
+- `tests/run_tests.py` — suite completa contra MVM real (PDB desechable, sin servicios externos).
+- `harness/elena_harness.py` — status / seed / decide / review / log / constitution.
+- `docs/DECISION_SCHEMA.md` — el contrato de la decision card + lint.
+
+### Notas
+- Primera decisión registrada de Elena: *cómo se llama* (ironía intencional del equipo).
+- Diálogos canónicos entre las tres (golden examples) — pendientes como siguiente iteración.
