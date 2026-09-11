@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.2] — 2026-09-11
+
+### Añadido
+- 🧭 **Landing — [elena.cadences.app](https://elena.cadences.app)**: single-file (EN/ES),
+  su personaje (la decision card real, la ley en 12 artículos) y *su realidad sobre LUMEN*
+  (la sala de cierre: cards firmadas, el reloj, la cota dura de Astrid), OG, favicon;
+  cross-links de la tríada.
+
+### Docs
+- README (+ ES): 🌐 landing link.
+
 ## [0.1.1] — 2026-09-10
 
 ### Notas
