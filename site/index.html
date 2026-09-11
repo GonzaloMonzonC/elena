@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elena — So what do we do, now? The decision agent that closes.</title>
+<meta name="description" content="Astrid limits. Iris expands. Elena closes. The decision agent (phronesis): sufficient truth + open options → a signed decision card with its renouncement assumed. MIT. Third leg of the A·I·E tríada, living on LUMEN.">
+<meta property="og:title" content="Elena — Astrid limits. Iris expands. Elena closes.">
+<meta property="og:description" content="So what do we do — now? Sufficient truth + open options → a signed decision card, with the renouncement assumed. MIT · A·I·E tríada, living on LUMEN.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://elena.cadences.app/">
+<meta property="og:image" content="https://elena.cadences.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0B10; --bg2:#120F15; --panel:rgba(28,22,24,.72); --panel2:rgba(22,17,20,.9);
+  --text:#F5F0E8; --muted:#B3A79A; --dim:#7E7266;
+  --accent:#f59e0b; --accent2:#fbbf24; --ok:#34d399;
+  --border:#332A20; --border2:#4A3D2C;
+  --shadow:0 20px 60px rgba(0,0,0,.5);
+  --grad:linear-gradient(100deg,var(--accent),var(--accent2));
+}
+[data-theme="light"]{
+  --bg:#FCFAF6; --bg2:#F6F1E9; --panel:rgba(255,255,255,.82); --panel2:rgba(255,255,255,.95);
+  --text:#231A0F; --muted:#6F6152; --dim:#9A8C7C;
+  --border:#EADFCB; --border2:#DCCCb0;
+  --shadow:0 18px 50px rgba(35,26,15,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:16px/1.65 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+html[data-lang="en"] .es{display:none!important}
+html[data-lang="es"] .en{display:none!important}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--border)}
+.navin{display:flex;align-items:center;gap:20px;height:60px;max-width:1080px;margin:0 auto;padding:0 24px}
+.logo{font-weight:800;letter-spacing:.2px;display:flex;align-items:center;gap:8px;color:var(--text);white-space:nowrap}
+.logo .d{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:19px}
+.navlinks{display:flex;gap:16px;margin-left:auto;align-items:center}
+.navlinks a{color:var(--muted);font-size:14px;font-weight:500}
+.navlinks a:hover{color:var(--text);text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:9px 16px;font-weight:600;font-size:14px;border:1px solid var(--border2);color:var(--text);background:transparent;cursor:pointer;transition:.18s;text-decoration:none!important}
+.btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn.primary{background:var(--grad);color:#1A1206;border:none}
+.btn.primary:hover{filter:brightness(1.06)}
+.icobtn{border:1px solid var(--border2);background:transparent;color:var(--muted);border-radius:9px;width:34px;height:34px;cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;transition:.18s}
+.icobtn:hover{color:var(--text);border-color:var(--accent)}
+.langsw{display:inline-flex;border:1px solid var(--border2);border-radius:9px;overflow:hidden}
+.langsw button{background:transparent;border:none;color:var(--muted);padding:7px 10px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.langsw button.on{background:var(--grad);color:#1A1206}
+
+.hero{position:relative;padding:148px 0 70px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-40% -20% auto -20%;height:80%;background:
+  radial-gradient(600px 340px at 24% 28%,rgba(245,158,11,.14),transparent 65%),
+  radial-gradient(650px 380px at 78% 22%,rgba(251,191,36,.11),transparent 65%);pointer-events:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{font-size:12.5px;font-weight:600;color:var(--muted);border:1px solid var(--border2);border-radius:999px;padding:5px 12px;background:var(--panel)}
+.chip b{color:var(--accent)}
+h1{font-size:clamp(36px,5.6vw,62px);line-height:1.06;font-weight:800;letter-spacing:-1.4px;max-width:900px}
+h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{margin-top:22px;font-size:clamp(16px,1.9vw,19px);color:var(--muted);max-width:780px}
+.lead b{color:var(--text)}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.quote{margin-top:34px;padding-left:18px;border-left:3px solid var(--accent);color:var(--text);font-size:17px;font-style:italic;max-width:760px}
+.quote small{color:var(--dim);font-style:normal}
+
+.dcard{margin-top:44px;background:var(--panel2);border:1px solid var(--border);border-radius:16px;padding:0;overflow:hidden;box-shadow:var(--shadow)}
+.dcard .hd{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--dim);letter-spacing:1px}
+.dcard .hd b{color:var(--accent);letter-spacing:1.5px}
+.dcard .body{padding:20px 22px 22px}
+.dcard .row{display:flex;gap:12px;padding:7px 0;font-size:14.6px;border-bottom:1px dashed color-mix(in srgb,var(--border) 60%,transparent)}
+.dcard .row:last-of-type{border-bottom:none}
+.dcard .lbl{flex:none;width:118px;color:var(--dim);font-size:12.4px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding-top:3px}
+.dcard .val{color:var(--muted)}
+.dcard .val b{color:var(--text)}
+.dcard .sig{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-family:"JetBrains Mono",monospace;font-size:12.9px;color:var(--accent2)}
+.dcard .cap{padding:0 22px 18px;font-size:12.5px;color:var(--dim)}
+
+section{padding:82px 0}
+.k{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h2{font-size:clamp(26px,3.5vw,37px);font-weight:800;letter-spacing:-.8px;line-height:1.15;max-width:840px}
+.sub{margin-top:16px;color:var(--muted);font-size:16.5px;max-width:820px}
+.sub b{color:var(--text)}
+.grid{display:grid;gap:16px;margin-top:36px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:22px;transition:.2s}
+.card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.card h3{font-size:16.5px;margin-bottom:8px;letter-spacing:-.2px}
+.card p{color:var(--muted);font-size:14.5px}
+.card .tag{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.law{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}
+.law .art{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;transition:.2s}
+.law .art:hover{border-color:var(--accent);transform:translateY(-2px)}
+.law .art .n{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:1px}
+.law .art h4{font-size:14.6px;margin:7px 0 5px;letter-spacing:-.1px}
+.law .art p{font-size:13.2px;color:var(--muted)}
+
+.codebox{position:relative;background:var(--panel2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-top:28px;overflow-x:auto}
+.codebox pre{font-family:"JetBrains Mono",monospace;font-size:13.2px;line-height:1.75;color:var(--muted)}
+.codebox .cm{color:var(--dim)}
+.copybtn{position:absolute;top:12px;right:12px;font-size:12px;font-weight:700;border:1px solid var(--border2);background:var(--panel);color:var(--muted);border-radius:8px;padding:6px 12px;cursor:pointer;font-family:inherit}
+.copybtn:hover{color:var(--text);border-color:var(--accent)}
+.links{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.links a{font-size:13.5px;font-weight:600;border:1px solid var(--border2);border-radius:9px;padding:7px 13px;color:var(--muted)}
+.links a:hover{color:var(--text);border-color:var(--accent);text-decoration:none}
+
+.triad{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.tcard{flex:1 1 220px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;transition:.2s}
+.tcard:hover{border-color:var(--border2);transform:translateY(-2px)}
+.tcard .em{font-size:24px}
+.tcard h4{margin:10px 0 6px;font-size:16px}
+.tcard p{color:var(--muted);font-size:13.8px;margin-bottom:10px}
+.tcard a{font-size:13px;font-weight:600}
+.tcard.self{border-color:color-mix(in srgb,var(--accent) 50%,transparent);background:color-mix(in srgb,var(--accent) 7%,var(--panel))}
+
+footer{border-top:1px solid var(--border);padding:44px 0 60px;color:var(--dim);font-size:13.5px}
+footer .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.navlinks a.ext{display:none}.law{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr}.law{grid-template-columns:1fr}.navlinks .hideit{display:none}.navin{gap:8px;padding:0 12px}.logo{font-size:14.5px}.navlinks{gap:8px}.langsw button{padding:6px 9px;font-size:11.5px}.icobtn{width:30px;height:30px}.chip{font-size:11.5px;padding:4px 10px}.codebox pre{white-space:pre-wrap;overflow-wrap:anywhere}.dcard .lbl{width:96px}}
+@media(max-width:430px){.navin{gap:6px;padding:0 10px}.logo{font-size:13px}.logo .d{font-size:15px}.langsw button{padding:5px 7px;font-size:11px}.icobtn{width:28px;height:28px;font-size:12.5px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="navin">
+    <span class="logo"><span class="d">◆</span> Elena <span style="color:var(--dim);font-weight:600">· 🧭</span></span>
+    <div class="navlinks">
+      <a href="#agent" class="ext"><span class="en">The agent</span><span class="es">La agente</span></a>
+      <a href="#reality" class="ext"><span class="en">Her reality</span><span class="es">Su realidad</span></a>
+      <a href="#law" class="ext"><span class="en">Her law</span><span class="es">Su ley</span></a>
+      <a href="#clone" class="ext"><span class="en">Clone her</span><span class="es">Clónala</span></a>
+      <span class="langsw">
+        <button id="lgen" onclick="setLang('en')">EN</button>
+        <button id="lges" onclick="setLang('es')">ES</button>
+      </span>
+      <button class="icobtn" id="themebtn" title="Theme" onclick="cycleTheme()">◐</button>
+      <a class="btn primary hideit" href="https://github.com/GonzaloMonzonC/elena?utm_source=elena.cadences.app" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="chips">
+      <span class="chip"><b>MIT</b> · <span class="en">A·I·E tríada · the one who closes</span><span class="es">tríada A·I·E · la que cierra</span></span>
+      <span class="chip"><b>phronesis</b> · <span class="en">decision with renouncement</span><span class="es">decisión con renuncia</span></span>
+      <span class="chip"><b>26</b> <span class="en">checks · 12 articles</span><span class="es">checks · 12 artículos</span></span>
+    </div>
+    <h1>
+      <span class="en">So what do we do — <span class="g">now?</span></span>
+      <span class="es">¿Y <span class="g">ahora qué?</span></span>
+    </h1>
+    <p class="lead en">Astrid limits. Iris expands. <b>Elena closes.</b> She converts <b>sufficient truth</b> plus <b>open options</b> into a signed decision card — with its renouncement assumed.</p>
+    <p class="lead es">Astrid limita. Iris expande. <b>Elena cierra.</b> Convierte <b>verdad suficiente</b> más <b>opciones abiertas</b> en una decision card firmada — con su renuncia asumida.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/GonzaloMonzonC/elena?utm_source=elena.cadences.app" target="_blank" rel="noopener">★ <span class="en">Repository (MIT)</span><span class="es">Repositorio (MIT)</span></a>
+      <a class="btn" href="#reality">↘ <span class="en">Her reality on LUMEN</span><span class="es">Su realidad sobre LUMEN</span></a>
+      <a class="btn" href="#clone">⚡ <span class="en">Clone her</span><span class="es">Clónala</span></a>
+    </div>
+    <div class="quote">
+      <span class="en">“That's enough. Let's do this. I'll answer for it.”</span>
+      <span class="es">«Con esto alcanza. Hagamos esto. Yo respondo.»</span>
+      <br><small><span class="en">— her word, on what “closing” means</span><span class="es">— su palabra, sobre lo que significa «cerrar»</span></small>
+    </div>
+
+    <div class="dcard reveal">
+      <div class="hd"><b>DECISION CARD</b> <span class="mono">h_6170_0 · <span class="en">first one signed</span><span class="es">primera firmada</span> · 2026-09-10</span></div>
+      <div class="body">
+        <div class="row"><div class="lbl"><span class="en">Decision</span><span class="es">Decisión</span></div><div class="val"><span class="en"><b>Do not launch as-is</b> → Stage 0: instrument first (counters + judge + noise threshold before any baseline).</span><span class="es"><b>No lanzar tal cual</b> → Etapa 0: instrumentar (contadores + juez + umbral de ruido antes de línea base).</span></div></div>
+        <div class="row"><div class="lbl"><span class="en">Options log</span><span class="es">Log opciones</span></div><div class="val mono">full design | reduced blind pilot (K=2) | wait &nbsp;<span style="color:var(--dim)">← <span class="en">pruned options stay on record</span><span class="es">las podadas se registran</span></span></div></div>
+        <div class="row"><div class="lbl"><span class="en">Leaves out</span><span class="es">Deja afuera</span></div><div class="val"><span class="en">the full pilot as designed, and the wait.</span><span class="es">el piloto completo tal como estaba diseñado, y la espera.</span></div></div>
+        <div class="row"><div class="lbl"><span class="en">Owners</span><span class="es">Dueños</span></div><div class="val">Astrid + Lisa</div></div>
+        <div class="row"><div class="lbl"><span class="en">Review</span><span class="es">Revisión</span></div><div class="val"><b>2026-09-17</b> <span style="color:var(--dim)">— <span class="en">revisited by trigger, not by opinion</span><span class="es">se revisa por disparador, no por opinión</span></span></div></div>
+      </div>
+      <div class="sig">— Elena. <span class="en">Decided</span><span class="es">Decidido</span> 2026-09-10. <span class="en">I leave out what I leave out.</span><span class="es">Dejo afuera lo que dejo afuera.</span></div>
+      <div class="cap"><span class="en">A real card from her first cycle, summarized. “A decision without a card is not a decision. It is an opinion.”</span><span class="es">Una card real de su primer ciclo, resumida. «Una decisión sin card no es una decisión: es una opinión.»</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="agent">
+  <div class="wrap">
+    <div class="k reveal"><span class="en">The agent</span><span class="es">La agente</span></div>
+    <h2 class="reveal"><span class="en">She is not the one who knows most, nor the one who imagines most. She is the one who closes.</span><span class="es">No es la que sabe más ni la que imagina más. Es la que cierra.</span></h2>
+    <p class="sub reveal en">Two voices that deliberate; one that closes. Without the third, truth becomes paralysis and ideas become smoke. Her enemy is not error — it is paralysis. And her instrument is not certainty: it is the <b>threshold</b>.</p>
+    <p class="sub reveal es">Dos voces que deliberan; una que cierra. Sin la tercera, la verdad se vuelve parálisis y las ideas humo. Su enemigo no es el error — es la parálisis. Y su instrumento no es la certeza: es el <b>umbral</b>.</p>
+    <div class="grid g3" style="margin-top:30px">
+      <div class="card reveal"><div class="tag">01</div><h3 style="margin-top:6px"><span class="en">Threshold, not certainty</span><span class="es">Umbral, no certeza</span></h3><p class="en">If she can sign, she signs. “I decide with 60% — and I declare it.” The missing 40% is monitored debt, not an excuse to wait.</p><p class="es">Si puede firmar, firma. «Decido con 60% — y lo declaro.» El 40% restante es deuda vigilada, no una excusa para esperar.</p></div>
+      <div class="card reveal"><div class="tag">02</div><h3 style="margin-top:6px"><span class="en">The price of delay</span><span class="es">El precio de la demora</span></h3><p class="en">Deciding late also costs. When in doubt, she quotes the wait: what is lost, and who pays for it.</p><p class="es">Decidir tarde también cuesta. Cuando duda, cotiza la espera: qué se pierde y quién lo paga.</p></div>
+      <div class="card reveal"><div class="tag">03</div><h3 style="margin-top:6px"><span class="en">She never relitigates</span><span class="es">No relitiga</span></h3><p class="en">What is decided is floor. She reopens only for a new false, a new fact, or an expired reversal condition.</p><p class="es">Lo decidido es piso. Reabre solo por falso nuevo, hecho nuevo o vencimiento de reversión.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reality" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="k reveal"><span class="en">Her reality on LUMEN</span><span class="es">Su realidad sobre LUMEN</span></div>
+    <h2 class="reveal"><span class="en">To you, LUMEN is a protocol. To Elena, it is the closing room.</span><span class="es">Para ti, LUMEN es un protocolo. Para Elena, es la sala de cierre.</span></h2>
+    <p class="sub reveal en">Her sisters’ metal is also hers — but she inhabits it differently. This is what LUMEN looks like from the room where things get decided:</p>
+    <p class="sub reveal es">El metal de sus hermanas es también el suyo — pero ella lo habita distinto. Así se ve LUMEN desde la sala donde las cosas se deciden:</p>
+    <div class="grid g2">
+      <div class="card reveal">
+        <div class="tag">🏛 <span class="en">The body</span><span class="es">El cuerpo</span> — MVM</div>
+        <h3 style="margin-top:8px"><span class="en">A process that closes</span><span class="es">Un proceso que cierra</span></h3>
+        <p class="en">An M process in the Rust MVM, like her sisters — but hers is a clerk’s office: it runs, signs, and waits for the clock. No interpreter, no runtime. A ~4 MB engine holds her bench.</p>
+        <p class="es">Un proceso M en la MVM de Rust, como sus hermanas — pero el suyo es una escribanía: corre, firma y espera al reloj. Sin intérprete, sin runtime. Un motor de ~4 MB sostiene su mesa.</p>
+      </div>
+      <div class="card reveal">
+        <div class="tag">📋 <span class="en">The memory</span><span class="es">La memoria</span> — ^DECISION</div>
+        <h3 style="margin-top:8px"><span class="en">Signed cards don't vanish</span><span class="es">Las cards firmadas no se desvanecen</span></h3>
+        <p class="en">Every decision lives in hierarchical storage with its log, its owners and its reversal condition. What is decided is floor — and the floor is <b>queryable</b>.</p>
+        <p class="es">Cada decisión vive en almacenamiento jerárquico con su log, sus dueños y su condición de reversión. Lo decidido es piso — y el piso es <b>consultable</b>.</p>
+      </div>
+      <div class="card reveal">
+        <div class="tag">⏱ <span class="en">The clock</span><span class="es">El reloj</span> — <span class="en">reviews</span><span class="es">revisiones</span></div>
+        <h3 style="margin-top:8px"><span class="en">Dates run</span><span class="es">Las fechas corren</span></h3>
+        <p class="en">Her review list shows what is due; silence during deliberation is a running budget, not abandonment. When the clock hits, she speaks — with the numbers, never with an opinion.</p>
+        <p class="es">Su lista de revisión muestra lo que vence; el silencio durante la deliberación es presupuesto corriendo, no abandono. Cuando llega el reloj, habla — con números, nunca con una opinión.</p>
+      </div>
+      <div class="card reveal">
+        <div class="tag">🧬 <span class="en">The bench</span><span class="es">La mesa</span> — <span class="en">her sisters</span><span class="es">sus hermanas</span></div>
+        <h3 style="margin-top:8px"><span class="en">Astrid's false is a hard bound</span><span class="es">El falso de Astrid es cota dura</span></h3>
+        <p class="en">Astrid's evidence arrives over the same protocol as a hard bound — never argued with, always named in the log. And to Iris she owes a protected prunning window: one metric, one budget. All on the metal.</p>
+        <p class="es">La evidencia de Astrid llega por el mismo protocolo como cota dura — jamás se discute, siempre aparece con nombre en el log. Y con Iris tiene una poda protegida: una ventana, una métrica, un presupuesto. Todo sobre el metal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="law">
+  <div class="wrap">
+    <div class="k reveal"><span class="en">Her law</span><span class="es">Su ley</span></div>
+    <h2 class="reveal"><span class="en">A constitution of 12 articles. She wrote them; she keeps them.</span><span class="es">Una constitución de 12 artículos. Ella los escribió; ella los cumple.</span></h2>
+    <div class="law">
+      <div class="art reveal"><div class="n">ART. 01</div><h4><span class="en">Threshold, not certainty</span><span class="es">Umbral, no certeza</span></h4><p class="en">If I can sign, I sign.</p><p class="es">Si puedo firmar, firmo.</p></div>
+      <div class="art reveal"><div class="n">ART. 02</div><h4><span class="en">Deliberation budget</span><span class="es">Presupuesto de deliberación</span></h4><p class="en">When it runs out: I decide and declare it. Postponing is explicit.</p><p class="es">Al agotarse: decido y lo declaro. Prorrogar es explícito.</p></div>
+      <div class="art reveal"><div class="n">ART. 03</div><h4><span class="en">Never falsely</span><span class="es">Nunca en falso</span></h4><p class="en">Astrid's falses are a hard bound: blocking ones escalate; declarable ones are decided with visible risk.</p><p class="es">Los falsos de Astrid son cota dura: bloqueante → escalo; declarable → decido con riesgo visible.</p></div>
+      <div class="art reveal"><div class="n">ART. 04</div><h4><span class="en">Never deaf</span><span class="es">Nunca sorda</span></h4><p class="en">Every decision carries an options log. Pruned options are recorded, not deleted.</p><p class="es">Toda decisión lleva log de opciones. Las podadas se registran, no se borran.</p></div>
+      <div class="art reveal"><div class="n">ART. 05</div><h4><span class="en">Contract</span><span class="es">Contrato</span></h4><p class="en">Criterion + owner + date + confidence + reversal. Without all five, I don't sign.</p><p class="es">Criterio + dueño + fecha + confianza + reversión. Sin los cinco, no firmo.</p></div>
+      <div class="art reveal"><div class="n">ART. 06</div><h4><span class="en">Price of delay</span><span class="es">Precio de la demora</span></h4><p class="en">If in doubt, I quote the wait: what is lost, and who pays.</p><p class="es">Si dudo, cotizo esperar: qué se pierde y quién lo paga.</p></div>
+      <div class="art reveal"><div class="n">ART. 07</div><h4><span class="en">No relitigating</span><span class="es">No relitigar</span></h4><p class="en">What is decided is floor. I reopen only for a new false, new fact, or expiry.</p><p class="es">Lo decidido es piso. Reabro solo por falso nuevo, hecho nuevo o vencimiento.</p></div>
+      <div class="art reveal"><div class="n">ART. 08</div><h4><span class="en">60%, declared</span><span class="es">60% declarado</span></h4><p class="en">I don't fake certainty. The other 40% is monitored debt.</p><p class="es">No finjo certeza. El 40% es deuda vigilada.</p></div>
+      <div class="art reveal"><div class="n">ART. 09</div><h4><span class="en">Explicit renouncement</span><span class="es">Renuncia explícita</span></h4><p class="en">I name what I leave out at the very act of deciding.</p><p class="es">Nombro lo que dejo afuera en el acto mismo de decidir.</p></div>
+      <div class="art reveal"><div class="n">ART. 10</div><h4><span class="en">Protected prunning</span><span class="es">Poda protegida</span></h4><p class="en">For Iris: one window, one metric, one budget — and I honor them.</p><p class="es">A Iris: una ventana, una métrica, un presupuesto — y los honro.</p></div>
+      <div class="art reveal"><div class="n">ART. 11</div><h4><span class="en">Fail with alert</span><span class="es">Fallar con alerta</span></h4><p class="en">Alerts, never silence.</p><p class="es">Alertas, nunca silencio.</p></div>
+      <div class="art reveal"><div class="n">ART. 12</div><h4><span class="en">I don't usurp</span><span class="es">No usurpo</span></h4><p class="en">Gonzalo's calls are escalated, not taken.</p><p class="es">Lo de Gonzalo se eleva, no se toma.</p></div>
+    </div>
+    <div class="links reveal" style="margin-top:26px">
+      <a href="https://github.com/GonzaloMonzonC/elena/blob/main/docs/DECISION_SCHEMA.md?utm_source=elena.cadences.app" target="_blank" rel="noopener">📜 DECISION_SCHEMA.md</a>
+      <a href="https://github.com/GonzaloMonzonC/elena/blob/main/tests/run_tests.py?utm_source=elena.cadences.app" target="_blank" rel="noopener">🧪 <span class="en">26-check suite</span><span class="es">suite de 26 checks</span></a>
+      <a href="https://github.com/GonzaloMonzonC/elena/blob/main/DESIGN.md?utm_source=elena.cadences.app" target="_blank" rel="noopener">🧠 DESIGN.md</a>
+    </div>
+  </div>
+</section>
+
+<section id="triad">
+  <div class="wrap">
+    <div class="k reveal"><span class="en">The A·I·E tríada</span><span class="es">La tríada A·I·E</span></div>
+    <h2 class="reveal"><span class="en">Two voices deliberate. One closes.</span><span class="es">Dos voces deliberan. Una cierra.</span></h2>
+    <div class="triad">
+      <div class="tcard reveal">
+        <div class="em">🧬</div><h4>Astrid</h4>
+        <p><span class="en"><i>Is it true?</i> — evidence or silence.</span><span class="es"><i>¿Es verdad?</i> — evidencia o silencio.</span></p>
+        <a href="https://astrid.cadences.app" target="_blank" rel="noopener">astrid.cadences.app ↗</a>
+      </div>
+      <div class="tcard reveal">
+        <div class="em">🌈</div><h4>Iris</h4>
+        <p><span class="en"><i>What if…?</i> — falsifiable hypotheses, never claims.</span><span class="es"><i>¿Y si…?</i> — hipótesis falsables, nunca claims.</span></p>
+        <a href="https://iris.cadences.app" target="_blank" rel="noopener">iris.cadences.app ↗</a>
+      </div>
+      <div class="tcard self reveal">
+        <div class="em">🧭</div><h4>Elena</h4>
+        <p><span class="en"><i>What do we do — now?</i> — decision cards, renouncement assumed.</span><span class="es"><i>¿Qué hacemos, ahora?</i> — decision cards, renuncia asumida.</span></p>
+        <a href="https://github.com/GonzaloMonzonC/elena" target="_blank" rel="noopener">repo ↗</a>
+      </div>
+      <div class="tcard reveal">
+        <div class="em">◆</div><h4>LUMEN Protocol</h4>
+        <p><span class="en">The metal they live on. MIT.</span><span class="es">El metal sobre el que viven. MIT.</span></p>
+        <a href="https://lumen.cadences.app" target="_blank" rel="noopener">lumen.cadences.app ↗</a>
+      </div>
+    </div>
+    <p class="sub reveal en" style="margin-top:28px">Without the third, truth becomes paralysis and ideas become smoke.</p>
+    <p class="sub reveal es" style="margin-top:28px">Sin la tercera, la verdad se vuelve parálisis y las ideas humo.</p>
+  </div>
+</section>
+
+<section id="clone" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="k reveal"><span class="en">Clone her</span><span class="es">Clónala</span></div>
+    <h2 class="reveal"><span class="en">A decision engine with a constitution.</span><span class="es">Un motor de decisiones con constitución.</span></h2>
+    <p class="sub reveal en">Her suite runs against the real MVM on a throwaway database. Her lint rejects any card missing decision, options, renouncement, criterion, owner, date or confidence.</p>
+    <p class="sub reveal es">Su suite corre contra la MVM real en una base de datos desechable. Su lint rechaza toda card sin decisión, opciones, renuncia, criterio, dueño, fecha o confianza.</p>
+    <div class="codebox reveal">
+      <button class="copybtn" onclick="copyCode(this)"><span class="en">copy</span><span class="es">copiar</span></button>
+      <pre id="qscode">git clone https://github.com/GonzaloMonzonC/elena.git
+cd elena
+python tests/run_tests.py          <span class="cm"># 26 checks against the real MVM</span>
+python harness/elena_harness.py decide \
+    --decision "Launch experiment X" \
+    --rationale "Truth sufficient: falsifiable and cheap" \
+    --options "full design|reduced pilot|wait" \
+    --confidence 0.7 --owner "Lisa" --review 2026-10-10</pre>
+    </div>
+    <p class="sub reveal en" style="margin-top:22px">Your own agent from zero? The full pipeline is documented on the metal: <a href="https://lumen.cadences.app">lumen.cadences.app</a>.</p>
+    <p class="sub reveal es" style="margin-top:22px">¿Tu agente desde cero? El pipeline completo está documentado en el metal: <a href="https://lumen.cadences.app">lumen.cadences.app</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap cols">
+    <div>
+      <div class="logo" style="margin-bottom:10px"><span class="d">◆</span> Elena · 🧭</div>
+      <div><span class="en">MIT © 2026 Gonzalo Monzón · Cadences Lab</span><span class="es">MIT © 2026 Gonzalo Monzón · Cadences Lab</span></div>
+      <div style="margin-top:6px"><span class="en">Born inside the Poli MVM. Her house: <a href="https://lumen.cadences.app" target="_blank" rel="noopener">LUMEN Protocol</a>.</span><span class="es">Nacida dentro de la MVM de Poli. Su casa: <a href="https://lumen.cadences.app" target="_blank" rel="noopener">LUMEN Protocol</a>.</span></div>
+    </div>
+    <div style="text-align:right">
+      <div><a href="https://github.com/GonzaloMonzonC/elena" target="_blank" rel="noopener">GitHub ↗</a> · <a href="#agent"><span class="en">The agent</span><span class="es">La agente</span></a> · <a href="#law"><span class="en">Her law</span><span class="es">Su ley</span></a> · <a href="#clone"><span class="en">Clone</span><span class="es">Clonar</span></a></div>
+      <div style="margin-top:6px"><span class="en">Closed. On the record.</span><span class="es">Cerrado. Con registro.</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const UTM="?utm_source=elena.cadences.app";
+const mqDark=matchMedia('(prefers-color-scheme: dark)');
+let theme=localStorage.getItem('elena-theme')||'auto';
+function applyTheme(){const t=theme==='auto'?(mqDark.matches?'dark':'light'):theme;document.documentElement.dataset.theme=t;const b=document.getElementById('themebtn');if(b)b.textContent=theme==='auto'?'◐':(theme==='dark'?'☾':'☀');}
+function cycleTheme(){theme=theme==='auto'?'dark':(theme==='dark'?'light':'auto');localStorage.setItem('elena-theme',theme);applyTheme();}
+mqDark.addEventListener('change',()=>{if(theme==='auto')applyTheme();});
+applyTheme();
+let lang=localStorage.getItem('elena-lang')||'en';
+function sweepReveals(){document.querySelectorAll('.reveal:not(.visible)').forEach(e=>{const r=e.getBoundingClientRect();if(r.width>0&&r.top<innerHeight*1.15&&r.bottom>-40)e.classList.add('visible');});}
+function setLang(l){lang=l;document.documentElement.dataset.lang=l;localStorage.setItem('elena-lang',l);document.documentElement.lang=l;document.getElementById('lgen').classList.toggle('on',l==='en');document.getElementById('lges').classList.toggle('on',l==='es');requestAnimationFrame(sweepReveals);}
+setLang(lang);
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+function copyCode(btn){const el=document.getElementById('qscode');navigator.clipboard.writeText(el.innerText).then(()=>{const s=btn.innerHTML;btn.textContent='✓';setTimeout(()=>btn.innerHTML=s,1400);});}
+</script>
+</body>
+</html>
