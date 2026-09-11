@@ -7,6 +7,7 @@
   su personaje (la decision card real, la ley en 12 artículos) y *su realidad sobre LUMEN*
   (la sala de cierre: cards firmadas, el reloj, la cota dura de Astrid), OG, favicon;
   cross-links de la tríada.
+- Landing: **firma visual v1** — brújula/reloj (marca de agua) + línea de hitos bajo el titular.
 
 ### Docs
 - README (+ ES): 🌐 landing link.
