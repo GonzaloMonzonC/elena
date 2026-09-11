@@ -2,6 +2,8 @@
 
 **Astrid limita. Iris expande. Elena cierra.**
 
+**🌐 [elena.cadences.app](https://elena.cadences.app)** · landing EN/ES
+
 Elena es la **agente decidora** — la tercera pata de la tríada de Cadences Lab, junto a [Astrid](https://github.com/GonzaloMonzonC/astrid) e [Iris](https://github.com/GonzaloMonzonC/iris):
 
 | Agente | Pregunta | Facultad |

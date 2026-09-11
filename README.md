@@ -2,6 +2,8 @@
 
 **Astrid limits. Iris expands. Elena closes.**
 
+**🌐 [elena.cadences.app](https://elena.cadences.app)** · landing EN/ES
+
 Elena is the **decision agent** — the third leg of the Cadences Lab tríada, alongside [Astrid](https://github.com/GonzaloMonzonC/astrid) and [Iris](https://github.com/GonzaloMonzonC/iris):
 
 | Agent | Question | Faculty |
